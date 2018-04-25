@@ -31,12 +31,44 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-
+		it('has a URL defined', function(){
+			//expect(allFeeds.forEach(url)).toBeDefined();
+				// forEach(url in allFeeds){
+					// expect(allFeeds(url)).toBeDefined();
+				// }
+			//for in loops with key value pairs
+			//adapted from stack overflow https://stackoverflow.com/questions/7241878/for-in-loops-in-javascript-key-value-pairs?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa			
+			for (let url in allFeeds){
+				let value = allFeeds[url];
+				expect(value).toBeDefined();				
+			}
+		});
+		
+		it('the URL is not empty', function(){	
+			for (let url in allFeeds){
+				let value = allFeeds[url];
+				expect(value).not.toBe('null');				
+			}
+		});
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+		 		it('the name is defined', function(){	
+			for (let name in allFeeds){
+				let value = allFeeds[name];
+				expect(value).toBeDefined();				
+			}
+		});
+		
+				it('the name is not empty', function(){	
+			for (let name in allFeeds){
+				let value = allFeeds[name];
+				expect(value).not.toBe('null');				
+			}
+		});
+		
     });
 
 
