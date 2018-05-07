@@ -62,7 +62,7 @@ $(function() {
     /* a new test suite named "The menu" */
 	$(function() {
 		let menuIcon = $('.menu-icon-link');
-		//let body = $('.menu-hidden');
+		const body = $('body');
 		
 		describe('The menu', function() {
 			/* a test that ensures the menu element is
@@ -72,7 +72,6 @@ $(function() {
 			 */
 			it('is hidden by default', function() {
 				//body includes menu-hidden class
-				//const bodyClass = document.getElementsByName('body');
 				const menuHidden = document.querySelector('.menu-hidden');
 				expect(menuHidden).toBeDefined();			
 			});
@@ -84,11 +83,9 @@ $(function() {
 			  */		  
 			  
 			it('displays when clicked, hides when clicked again', function() {
-				let bodyClassName = document.body.className; 
-				expect(bodyClassName).toBe('menu-hidden');
+				expect(body.hasClass('menu-hidden')).toBe(true);
 				menuIcon.click();
-				let bodyClassNameAfterClick = document.body.className; 
-				expect(bodyClassNameAfterClick).toBe('');
+				expect(body.hasClass('')).toBe(true);
 				//hide the menu
 				menuIcon.click();			
 			});		
@@ -111,7 +108,8 @@ $(function() {
 			});
 			
 			it('there is at least a single .entry element within the .feed container.', function(done) {
-				expect(allFeeds[0]).not.toBe(null);
+				//$('.parent .child')
+				expect($('.feed .feed-list')).not.toBe(null);
 				done();
 			});	
 		});
@@ -127,19 +125,20 @@ $(function() {
 			//take a snapshot of the feed array before the loadFeed function is called
 			let startingFeeds = [];
 			let finishingFeeds = [];
+			const feedURLs = document.querySelector('.feed');
 			beforeEach(function(done){
-				loadFeed(2, done())(function(){
-					startingFeeds = allFeeds;
-					done();
+				loadFeed(2, function(){
+					firstFeed = feedURLs.innerHTML;
+					//second load
+					loadFeed(3, function(){
+						secondFeed = feedURLs.innerHTML;
+						done();
+					});
 				});
 			});
 			
 			it('content has changed.', function(done) {//runs when "done" is returned from the beforeEach function
-				let cb;
-				//second load
-				loadFeed(3,cb);
-				finishingFeeds = allFeeds;
-				expect(startingFeeds).not.toEqual(finishingFeeds);
+				expect(firstFeed).not.toEqual(secondFeed);
 				done();
 			});	
 		});
