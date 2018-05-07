@@ -122,10 +122,8 @@ $(function() {
 			 * Remember, loadFeed() is asynchronous.
 			 */
 
-			//take a snapshot of the feed array before the loadFeed function is called
-			let startingFeeds = [];
-			let finishingFeeds = [];
 			const feedURLs = document.querySelector('.feed');
+			
 			beforeEach(function(done){
 				loadFeed(2, function(){
 					firstFeed = feedURLs.innerHTML;
